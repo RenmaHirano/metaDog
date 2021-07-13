@@ -23,7 +23,7 @@ public class DogController : MonoBehaviour
 	void Update()
 	{
 		RotateDog();
-		if (!isDogStopAndTurn) RunDog();
+		RunDog();
 	}
 
 	void RotateDog()
@@ -58,17 +58,20 @@ public class DogController : MonoBehaviour
 
 	void RunDog()
 	{
-		if (Input.GetKey(KeyCode.W) && dogSpeed < MAXSPEED - ACCEL_DOG)
+		if (!isDogStopAndTurn)
 		{
-			dogSpeed += ACCEL_DOG;
-		}
-		else if (dogSpeed > MINSPEED + ACCEL_DOG)
-		{
-			dogSpeed -= ACCEL_DOG;
-		}
+			if (Input.GetKey(KeyCode.W) && dogSpeed < MAXSPEED - ACCEL_DOG)
+			{
+				dogSpeed += ACCEL_DOG;
+			}
+			else if (dogSpeed > MINSPEED + ACCEL_DOG)
+			{
+				dogSpeed -= ACCEL_DOG;
+			}
 
-		gameObject.transform.position += dogSpeed * 2 * transform.forward * Time.deltaTime;
+			gameObject.transform.position += dogSpeed * 2 * transform.forward * Time.deltaTime;
 
-		dogAnimator.SetFloat("DogSpeed", dogSpeed);
+			dogAnimator.SetFloat("DogSpeed", dogSpeed);
+		}
 	}
 }
